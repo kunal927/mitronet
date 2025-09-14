@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs")
-const Signup = require("../models/Signup")
+const Signup = require("../models/signup")
 
 // @desc    Get signup page
 // @route   GET /signup
