@@ -1,4 +1,4 @@
-const Signup = require("../models/Signup")
+const Signup = require("../models/signup")
 const Post = require("../models/post")
 const UserProfile = require("../models/profiledata")
 
