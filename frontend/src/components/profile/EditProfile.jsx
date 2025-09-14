@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from "react"
-import {useNavigate} from "react-router-dom"
-import {useAuth} from "../../contexts/AuthContext"
-import "./EditProfile.css"
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import "./EditProfile.css";
 
 const EditProfile = () => {
   const [formData, setFormData] = useState({
@@ -11,84 +11,87 @@ const EditProfile = () => {
     city: "",
     contact: "",
     dob: "",
-  })
-  const [profileImage, setProfileImage] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [errors, setErrors] = useState([])
-  const {user} = useAuth()
-  const navigate = useNavigate()
+  });
+  const [profileImage, setProfileImage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState([]);
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchCurrentProfile()
-  }, [])
+    fetchCurrentProfile();
+  }, []);
 
   const fetchCurrentProfile = async () => {
     try {
-      const response = await fetch("http://localhost:3000/profile", {
+      const response = await fetch("https://mitronet.onrender.com/profile", {
         credentials: "include",
-      })
+      });
 
       if (response.ok) {
         // Since backend returns HTML, we'll handle differently
         // For now, keep form fields empty for user to fill
       }
     } catch (error) {
-      console.error("Error fetching profile:", error)
+      console.error("Error fetching profile:", error);
     }
-  }
+  };
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0]
+    const file = e.target.files[0];
     if (file) {
-      setProfileImage(file)
+      setProfileImage(file);
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setErrors([])
-    setLoading(true)
+    e.preventDefault();
+    setErrors([]);
+    setLoading(true);
 
     try {
-      const formDataToSend = new FormData()
+      const formDataToSend = new FormData();
 
       // Add all form fields
       Object.keys(formData).forEach((key) => {
         if (formData[key]) {
-          formDataToSend.append(key, formData[key])
+          formDataToSend.append(key, formData[key]);
         }
-      })
+      });
 
       // Add profile image if selected
       if (profileImage) {
-        formDataToSend.append("profileImage", profileImage)
+        formDataToSend.append("profileImage", profileImage);
       }
 
-      const response = await fetch("http://localhost:3000/editprofile", {
-        method: "POST",
-        credentials: "include",
-        body: formDataToSend,
-      })
+      const response = await fetch(
+        "https://mitronet.onrender.com/editprofile",
+        {
+          method: "POST",
+          credentials: "include",
+          body: formDataToSend,
+        }
+      );
 
       if (response.ok) {
-        navigate("/profile")
+        navigate("/profile");
       } else {
-        setErrors(["Failed to update profile"])
+        setErrors(["Failed to update profile"]);
       }
     } catch (error) {
-      console.error("Error updating profile:", error)
-      setErrors(["An error occurred while updating profile"])
+      console.error("Error updating profile:", error);
+      setErrors(["An error occurred while updating profile"]);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="edit-profile-container">
@@ -240,7 +243,7 @@ const EditProfile = () => {
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default EditProfile
+export default EditProfile;

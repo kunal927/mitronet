@@ -1,95 +1,101 @@
-import React, {useState, useEffect} from "react"
-import {useAuth} from "../../contexts/AuthContext"
-import PostCard from "../posts/PostCard"
-import CreatePostModal from "../posts/CreatePostModal"
-import "./Dashboard.css"
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../../contexts/AuthContext";
+import PostCard from "../posts/PostCard";
+import CreatePostModal from "../posts/CreatePostModal";
+import "./Dashboard.css";
 
 const Dashboard = () => {
-  const [posts, setPosts] = useState([])
-  const [contacts, setContacts] = useState([])
-  const [userProfile, setUserProfile] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [showCreatePost, setShowCreatePost] = useState(false)
-  const {user} = useAuth()
+  const [posts, setPosts] = useState([]);
+  const [contacts, setContacts] = useState([]);
+  const [userProfile, setUserProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [showCreatePost, setShowCreatePost] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
-    fetchDashboardData()
-  }, [])
+    fetchDashboardData();
+  }, []);
 
   const fetchDashboardData = async () => {
     try {
-      const response = await fetch("http://localhost:3000/loginSuccessful", {
-        credentials: "include",
-        headers: {
-          "Accept": "application/json",
-        },
-      })
+      const response = await fetch(
+        "https://mitronet.onrender.com/loginSuccessful",
+        {
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
 
       if (response.ok) {
-        const data = await response.json()
-        setPosts(data.posts || [])
-        setContacts(data.contacts || [])
-        setUserProfile(data.user || null)
+        const data = await response.json();
+        setPosts(data.posts || []);
+        setContacts(data.contacts || []);
+        setUserProfile(data.user || null);
       }
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
-      console.error("Error fetching dashboard data:", error)
-      setLoading(false)
+      console.error("Error fetching dashboard data:", error);
+      setLoading(false);
     }
-  }
+  };
 
   const handleCreatePost = async (postData) => {
     try {
-      const response = await fetch("http://localhost:3000/createpost", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "Accept": "application/json",
-        },
-        credentials: "include",
-        body: new URLSearchParams({content: postData.content}),
-      })
+      const response = await fetch(
+        "https://mitronet.onrender.com/createpost",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Accept: "application/json",
+          },
+          credentials: "include",
+          body: new URLSearchParams({ content: postData.content }),
+        }
+      );
 
       if (response.ok) {
-        setShowCreatePost(false)
-        fetchDashboardData() // Refresh posts
+        setShowCreatePost(false);
+        fetchDashboardData(); // Refresh posts
       }
     } catch (error) {
-      console.error("Error creating post:", error)
+      console.error("Error creating post:", error);
     }
-  }
+  };
 
   const handleLike = async (postId) => {
     try {
-      await fetch(`http://localhost:3000/like/${postId}`, {
+      await fetch(`https://mitronet.onrender.com/like/${postId}`, {
         method: "POST",
         headers: {
-          "Accept": "application/json",
+          Accept: "application/json",
         },
         credentials: "include",
-      })
-      fetchDashboardData() // Refresh posts
+      });
+      fetchDashboardData(); // Refresh posts
     } catch (error) {
-      console.error("Error liking post:", error)
+      console.error("Error liking post:", error);
     }
-  }
+  };
 
   const handleComment = async (postId, comment) => {
     try {
-      await fetch(`http://localhost:3000/comment/${postId}`, {
+      await fetch(`https://mitronet.onrender.com/comment/${postId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
-          "Accept": "application/json",
+          Accept: "application/json",
         },
         credentials: "include",
-        body: new URLSearchParams({comment}),
-      })
-      fetchDashboardData() // Refresh posts
+        body: new URLSearchParams({ comment }),
+      });
+      fetchDashboardData(); // Refresh posts
     } catch (error) {
-      console.error("Error adding comment:", error)
+      console.error("Error adding comment:", error);
     }
-  }
+  };
 
   if (loading) {
     return (
@@ -99,7 +105,7 @@ const Dashboard = () => {
           <p>Loading your feed...</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -163,7 +169,7 @@ const Dashboard = () => {
                     <div className="contact-avatar">
                       {contact.profileImg ? (
                         <img
-                          src={`http://localhost:3000/${contact.profileImg}`}
+                          src={`https://mitronet.onrender.com/${contact.profileImg}`}
                           alt={contact.FullName}
                         />
                       ) : (
@@ -209,7 +215,7 @@ const Dashboard = () => {
         />
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

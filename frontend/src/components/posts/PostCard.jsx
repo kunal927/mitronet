@@ -1,34 +1,34 @@
-import React, {useState} from "react"
-import "./PostCard.css"
+import React, { useState } from "react";
+import "./PostCard.css";
 
-const PostCard = ({post, onLike, onComment}) => {
-  const [showComments, setShowComments] = useState(false)
-  const [newComment, setNewComment] = useState("")
-  const [isLiked, setIsLiked] = useState(false)
+const PostCard = ({ post, onLike, onComment }) => {
+  const [showComments, setShowComments] = useState(false);
+  const [newComment, setNewComment] = useState("");
+  const [isLiked, setIsLiked] = useState(false);
 
   const handleLike = () => {
-    setIsLiked(!isLiked)
-    onLike(post._id)
-  }
+    setIsLiked(!isLiked);
+    onLike(post._id);
+  };
 
   const handleComment = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (newComment.trim()) {
-      onComment(post._id, newComment)
-      setNewComment("")
+      onComment(post._id, newComment);
+      setNewComment("");
     }
-  }
+  };
 
   const formatDate = (date) => {
-    if (!date) return "Just now"
+    if (!date) return "Just now";
     return new Date(date).toLocaleDateString("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
-    })
-  }
+    });
+  };
 
   return (
     <div className="post-card">
@@ -37,7 +37,7 @@ const PostCard = ({post, onLike, onComment}) => {
           <div className="author-avatar">
             {post.profileImg ? (
               <img
-                src={`http://localhost:3000/${post.profileImg}`}
+                src={`https://mitronet.onrender.com/${post.profileImg}`}
                 alt={post.FullName}
               />
             ) : (
@@ -136,7 +136,7 @@ const PostCard = ({post, onLike, onComment}) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default PostCard
+export default PostCard;

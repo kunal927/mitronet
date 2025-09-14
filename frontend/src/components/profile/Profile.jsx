@@ -1,28 +1,28 @@
-import React, {useState, useEffect} from "react"
-import {Link} from "react-router-dom"
-import {useAuth} from "../../contexts/AuthContext"
-import "./Profile.css"
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import "./Profile.css";
 
 const Profile = () => {
-  const [profile, setProfile] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const {user} = useAuth()
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
-    fetchProfile()
-  }, [])
+    fetchProfile();
+  }, []);
 
   const fetchProfile = async () => {
     try {
-      const response = await fetch("http://localhost:3000/profile", {
+      const response = await fetch("https://mitronet.onrender.com/profile", {
         credentials: "include",
         headers: {
-          "Accept": "application/json",
+          Accept: "application/json",
         },
-      })
+      });
 
       if (response.ok) {
-        const data = await response.json()
+        const data = await response.json();
         setProfile({
           FullName: data.user?.FullName || "User",
           headline: data.profile?.headline || "",
@@ -31,14 +31,14 @@ const Profile = () => {
           city: data.profile?.city || "",
           contact: data.profile?.contact || "",
           profileImage: data.profile?.profileImage || null,
-        })
+        });
       }
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
-      console.error("Error fetching profile:", error)
-      setLoading(false)
+      console.error("Error fetching profile:", error);
+      setLoading(false);
     }
-  }
+  };
 
   if (loading) {
     return (
@@ -48,7 +48,7 @@ const Profile = () => {
           <p>Loading profile...</p>
         </div>
       </div>
-    )
+    );
   }
 
   const defaultProfile = {
@@ -59,9 +59,9 @@ const Profile = () => {
     city: "Add your city",
     contact: "Add your contact information",
     profileImage: null,
-  }
+  };
 
-  const displayProfile = profile || defaultProfile
+  const displayProfile = profile || defaultProfile;
 
   return (
     <div className="profile-container">
@@ -78,7 +78,7 @@ const Profile = () => {
             <div className="profile-image-container">
               {displayProfile.profileImage ? (
                 <img
-                  src={`http://localhost:3000/${displayProfile.profileImage}`}
+                  src={`https://mitronet.onrender.com/${displayProfile.profileImage}`}
                   alt="Profile"
                   className="profile-image"
                 />
@@ -175,7 +175,7 @@ const Profile = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;
