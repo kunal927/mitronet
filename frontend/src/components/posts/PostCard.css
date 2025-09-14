@@ -1,0 +1,292 @@
+.post-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.post-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.author-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.author-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.post-date {
+  font-size: 12px;
+  color: #666;
+  margin-top: 2px;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #666;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.menu-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.post-content {
+  padding: 16px 20px;
+}
+
+.post-content p {
+  margin: 0;
+  line-height: 1.6;
+  color: #333;
+  font-size: 15px;
+}
+
+.post-actions {
+  border-top: 1px solid #f0f0f0;
+  padding: 12px 20px;
+}
+
+.action-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: #666;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.3s ease;
+  flex: 1;
+  justify-content: center;
+}
+
+.action-btn:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.action-btn.liked {
+  color: #e74c3c;
+}
+
+.action-icon {
+  font-size: 16px;
+}
+
+.comments-section {
+  border-top: 1px solid #f0f0f0;
+  padding: 16px 20px;
+  background-color: #fafafa;
+}
+
+.comment-form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.comment-input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.comment-input:focus {
+  border-color: #667eea;
+}
+
+.comment-submit {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.comment-submit:hover {
+  background: #5a6fd8;
+}
+
+.comments-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.comment-item {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.comment-avatar .avatar-placeholder {
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+}
+
+.comment-content {
+  flex: 1;
+}
+
+.comment-bubble {
+  background: white;
+  padding: 8px 12px;
+  border-radius: 16px;
+  border: 1px solid #e0e0e0;
+}
+
+.comment-bubble strong {
+  font-size: 13px;
+  color: #333;
+}
+
+.comment-bubble p {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.4;
+}
+
+.comment-date {
+  font-size: 11px;
+  color: #999;
+  margin-left: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+.no-comments {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.no-comments p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .post-card {
+    margin-bottom: 16px;
+    border-radius: 8px;
+  }
+
+  .post-header,
+  .post-content,
+  .post-actions,
+  .comments-section {
+    padding: 12px 16px;
+  }
+
+  .author-avatar,
+  .avatar-placeholder {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .action-buttons {
+    gap: 8px;
+  }
+
+  .action-btn {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .action-btn {
+    padding: 6px 8px;
+    font-size: 12px;
+    gap: 6px;
+  }
+
+  .action-btn span {
+    display: none;
+  }
+
+  .action-icon {
+    font-size: 18px;
+  }
+}
