@@ -1,36 +1,40 @@
-const express = require("express")
-const app = express()
+const express = require("express");
+const app = express();
 // Load environment variables at the very top
-require("dotenv").config({path: "./config.env"})
-const cors = require("cors")
-const mongoose = require("mongoose")
-const session = require("express-session")
-const MongoStore = require("connect-mongo")
-const multer = require("multer")
-const path = require("path")
+require("dotenv").config({ path: "./config.env" });
+const cors = require("cors");
+const mongoose = require("mongoose");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+const multer = require("multer");
+const path = require("path");
 
 // Import organized routes
-const authRoutes = require("./routes/login")
-const signupRoutes = require("./routes/signup")
-const logoutRoutes = require("./routes/logout")
-const userRoutes = require("./routes/user")
-const postRoutes = require("./routes/posts")
+const authRoutes = require("./routes/login");
+const signupRoutes = require("./routes/signup");
+const logoutRoutes = require("./routes/logout");
+const userRoutes = require("./routes/user");
+const postRoutes = require("./routes/posts");
 
 // Import middleware
-const {setAuthStatus} = require("./middleware/auth")
-const {errorHandler, notFound} = require("./middleware/errorHandler")
-const connectDB = require("./db/db")
+const { setAuthStatus } = require("./middleware/auth");
+const { errorHandler, notFound } = require("./middleware/errorHandler");
+const connectDB = require("./db/db");
 
 // =================== CORS Setup ===================
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"], // React dev server
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "https://mitronet.onrender.com/",
+    ], // React dev server
     credentials: true,
   })
-)
+);
 
 // =================== JSON parsing ===================
-app.use(express.json())
+app.use(express.json());
 
 // =================== Multer Setup ===================
 const fileFilter = (req, file, cb) => {
@@ -39,30 +43,30 @@ const fileFilter = (req, file, cb) => {
     file.mimetype === "image/jpg" ||
     file.mimetype === "image/jpeg"
   ) {
-    cb(null, true)
+    cb(null, true);
   } else {
-    cb(null, false)
+    cb(null, false);
   }
-}
+};
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "uploads")) // Ensure uploads folder exists
+    cb(null, path.join(__dirname, "uploads")); // Ensure uploads folder exists
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname)
+    cb(null, Date.now() + "-" + file.originalname);
   },
-})
+});
 
-app.use(express.urlencoded({extended: true})) // parse form data
-app.use(multer({storage, fileFilter}).single("profileImage")) // handle image upload
+app.use(express.urlencoded({ extended: true })); // parse form data
+app.use(multer({ storage, fileFilter }).single("profileImage")); // handle image upload
 
 // =================== Static Files ===================
-app.use("/uploads", express.static(path.join(__dirname, "uploads")))
-app.use("/profile", express.static(path.join(__dirname, "uploads")))
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/profile", express.static(path.join(__dirname, "uploads")));
 
 // =================== Database Connection ===================
-const port = 3000
+const port = 3000;
 // mongoose
 //   .connect("mongodb://localhost:27017/jwtDemo")
 //   .then(() => console.log("✅ MongoDB connected"))
@@ -87,43 +91,43 @@ app.use(
       secure: false, // Set to true in production with HTTPS
     },
   })
-)
+);
 
 // Set authentication status for all requests
-app.use(setAuthStatus)
+app.use(setAuthStatus);
 
 // Add session debugging middleware
 app.use((req, res, next) => {
-  console.log('Session ID:', req.sessionID)
-  console.log('Session Data:', req.session)
-  next()
-})
+  console.log("Session ID:", req.sessionID);
+  console.log("Session Data:", req.session);
+  next();
+});
 
 app.get("/", (req, res) => {
-  res.send("Hello World!")
-})
+  res.send("Hello World!");
+});
 
 // =================== Routes ===================
 // Authentication routes
-app.use("/signup", signupRoutes)
-app.use("/login", authRoutes)
-app.use("/logout", logoutRoutes)
+app.use("/signup", signupRoutes);
+app.use("/login", authRoutes);
+app.use("/logout", logoutRoutes);
 
 // User routes (profile, connections, etc.)
-app.use("/", userRoutes)
+app.use("/", userRoutes);
 
 // Post routes (posts, comments, likes, etc.)
-app.use("/", postRoutes)
+app.use("/", postRoutes);
 
 // =================== Error Handling ===================
 // 404 handler
-app.use(notFound)
+app.use(notFound);
 
 // Global error handler
-app.use(errorHandler)
+app.use(errorHandler);
 
 // =================== Start Server ===================
 app.listen(port, () => {
-  console.log(`🚀 Server running at http://localhost:${port}`)
-  connectDB()
-})
+  console.log(`🚀 Server running at http://localhost:${port}`);
+  connectDB();
+});
