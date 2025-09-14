@@ -27,7 +27,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "http://localhost:5174",
-      "https://mitronet.onrender.com/",
+      "https://mitronet.onrender.com",
     ], // React dev server
     credentials: true,
   })
@@ -104,9 +104,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-  res.send(
-    "Hello World!000000000000000000000000000000000000000000000000000000"
-  );
+  res.send("Hello World!444444444444444444444444444444444444444444444444444");
 });
 
 // =================== Routes ===================
