@@ -28,6 +28,7 @@ app.use(
       "http://localhost:5173",
       "http://localhost:5174",
       "https://mitronet.onrender.com",
+      "https://mitronet-1.onrender.com",
     ], // React dev server
     credentials: true,
   })
