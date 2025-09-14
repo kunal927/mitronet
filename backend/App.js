@@ -99,6 +99,10 @@ app.use((req, res, next) => {
   next()
 })
 
+app.get("/", (req, res) => {
+  res.send("Hello World!")
+})
+
 // =================== Routes ===================
 // Authentication routes
 app.use("/signup", signupRoutes)
